@@ -4,7 +4,8 @@ import TheWeather from '../TheWeather/TheWeather';
 import styles from './BackGround.module.sass'
 import { useEffect } from 'react';
 import TheSlider from '../TheSlider/TheSlider';
-// import { tempToColor } from 'temp-color';
+import CitySearch from '../CitySearch/CitySearch';
+
 
 const BackGround = () => {
   const deg =  useSelector((state) => state.temp.deg);
@@ -29,6 +30,7 @@ const BackGround = () => {
 
   return (
     <div className={styles.background} style={{backgroundColor: calcColour(deg), width: '100%', height: '100vh'}}>
+      <CitySearch />
       <TheWeather />
       <TheSlider />
     </div>

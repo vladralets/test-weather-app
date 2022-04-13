@@ -14,6 +14,28 @@ export const fetchWeatherData = (lat, long) => {
       dispatch(tempActions.setWeather({
         img: weather.data.weather[0].icon,
         deg: weather.data.main.temp,
+        city: weather.data.name,
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const fetchCityWeather = (city) => {
+  return async (dispatch) => {
+    const fetchWeather = async () => {
+      return axios (
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`
+      )
+    }
+
+    try {
+      const cityData = await fetchWeather()
+      dispatch(tempActions.setCityWeather({
+        img: cityData.data.weather[0].icon,
+        deg: cityData.data.main.temp,
+        city: cityData.data.name,
       }))
     } catch (error) {
       console.log(error)

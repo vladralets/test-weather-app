@@ -1,11 +1,11 @@
 import './App.css';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { fetchWeatherData } from './components/TheWeather/TheWeatherActions';
+import { fetchWeatherData } from './store/TheWeatherActions';
 import { useDispatch } from 'react-redux';
 import BackGround from './components/BackGround/BackGround';
 
 function App() {
-  const [positionPermission, setPositionPermission] = useState('');
+  const [positionPermission, setPositionPermission] = useState('waiting');
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
@@ -30,16 +30,11 @@ function App() {
     dispatch(fetchWeatherData(latitude, longitude))
   }, [dispatch, latitude, longitude]);
 
-  let permissionContent = <p>Please enable location for this site in your browser</p>
-  if (positionPermission === 'accepted') {
-    permissionContent = <BackGround />
-  } else {
-    permissionContent = <p>Geolocation is not enabled</p>
-  }
-
   return (
     <div className="App">
-      {permissionContent}
+      {positionPermission === 'accepted' && <p>Please enable location for this site in your browser</p>}
+      {positionPermission === 'accepted' && <BackGround/>}
+      {positionPermission === 'denied' && <p>Geolocation is not enabled</p>}
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import styles from './TheSlider.module.sass'
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { tempActions } from '../TheWeather/TheWeatherSlice';
+import { useEffect, useState } from 'react';
+import { tempActions } from '../../store/TheWeatherSlice';
 
 const TheSlider = () => {
   const deg =  useSelector((state) => state.temp.deg);
-  const [sliderValue, setSliderValue] = useState(deg)
+  const [sliderValue, setSliderValue] = useState(0)
 
   const dispatch = useDispatch()
 
@@ -14,6 +14,10 @@ const TheSlider = () => {
     setSliderValue(sliderPoint)
     dispatch(tempActions.changeTemp(sliderValue))
   }
+
+  useEffect(() => {
+    setSliderValue(deg)
+  }, [deg])
 
   return (
     <>
