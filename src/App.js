@@ -20,7 +20,6 @@ function App() {
       },
       function (error) {
         console.error('Error Code = ' + error.code + ' - ' + error.message);
-
         setPositionPermission('denied')
       }
     )
